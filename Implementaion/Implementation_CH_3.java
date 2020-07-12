@@ -41,9 +41,12 @@ class Gear{
 	public double ratio(){
 		return (double)not_chainring()/(double) not_cog();
 	}
-	
+	public double diameter()
+	{
+		return wheel.diameter();
+	}
 	public double gear_inches(){
-		return this.ratio() * wheel.diameter();
+		return this.ratio() * this.diameter();
 	}
 }
 public class Implementation_CH_3{
