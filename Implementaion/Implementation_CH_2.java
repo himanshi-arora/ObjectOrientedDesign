@@ -7,13 +7,27 @@ java -cp ClassFiles OOD.Implementation_CH_2
 class Gear{
 		private int not_chainring;  //number of teeth in chaining
 		private int not_cog;		//number of teeth in cog
-		private float diameterOfRim;
-		private float diameterOfTire;
+		private Wheel wheel;
+
+		class Wheel {
+
+			private float diameterOfRim;
+			private float diameterOfTire;
+
+			Wheel( float diameterOfRim, float diameterOfTire){
+				this.diameterOfRim = diameterOfRim;
+				this.diameterOfTire = diameterOfTire;
+			}
+
+			public float diameter(){
+				return (diameterOfRim + (diameterOfTire *2));
+			}	
+		}
+		
 		public Gear(int not_chainring, int not_cog,float diameterOfRim,float diameterOfTire){
 			this.not_chainring=not_chainring;
 			this.not_cog=not_cog;
-			this.diameterOfRim=diameterOfRim;
-			this.diameterOfTire=diameterOfTire;
+			this.wheel=new Wheel(diameterOfRim,diameterOfTire);
 		}
 		private int not_cog()
 		{
@@ -26,11 +40,9 @@ class Gear{
 		public float ratio(){
 			return (float)not_chainring()/(float) not_cog();
 		}
-		public float diameter(){
-			return (diameterOfRim + (diameterOfTire *2));
-		}
+		
 		public float gear_inches(){
-			return this.ratio() * diameter();
+			return this.ratio() * wheel.diameter();
 		}
 }
 public class Implementation_CH_2{
