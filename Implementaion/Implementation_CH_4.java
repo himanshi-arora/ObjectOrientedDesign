@@ -8,24 +8,22 @@ class Bicycle
 {
 	private String style,size, chain,tape_color,front_shock,rear_shock;
     protected double tire_size;
-	Bicycle(String style,String size,String front_shock,String arg){
+
+    Bicycle(String size){
 		this.style=style;
 		this.size = size;
-		this.front_shock=front_shock;
-		
-		this.chain = "10-speed";
-		if( style.equals("road")){	
-			this.tire_size = 23;
-			this.tape_color = arg;
-		}
-		else{
-			this.tire_size=2.1;
-			this.rear_shock=arg;
-		}
+		this.tire_size = 2.1;
+		this.chain="10-speed";
+		this.style="mountain";
 		
 	}
-	public String style(){
-		return style;
+	Bicycle(String size,String front_shock,String tape_color){
+		this.style="road";
+		this.size = size;
+		this.front_shock=front_shock;
+		this.tire_size = 23;
+		this.chain="10-speed";
+		this.tape_color = tape_color;
 	}
 	public String size(){
 		return size;
@@ -36,27 +34,45 @@ class Bicycle
 	public String front_shock(){
 		return front_shock;
 	}
-	public String rear_shock(){
-		return rear_shock;
-	}
 	public String spares(){
 		if(style.equals("road"))
-			return "[ chain : "+chain+" tire_size : "+tire_size+" tape_color : "+ tape_color+" ]";
+			return " chain : "+chain+" tire_size : "+tire_size+" tape_color : "+ tape_color;
 		else
-			return "[ chain : "+chain+" tire_size : "+tire_size+" rear_shock : "+ rear_shock+" ]";
+			return " chain : "+chain+" tire_size : "+tire_size+" rear_shock : ";
 
 	}
 
 }
+class MountainBike extends Bicycle
+{
+	private String front_shock;
+	private String rear_shock;
+	MountainBike(String size,String front_shock,String rear_shock)
+	{
+		super(size);
+		this.front_shock=front_shock;
+		this.rear_shock=rear_shock;
+		
+	}
+	public String front_shock(){
+		return front_shock;
+	}
+	public String spares(){
+		
+		return super.spares()+ rear_shock;
+
+	}
+}
 public class Implementation_CH_4{
 	public static void main(String[] args)
 	{
-		Bicycle bike=new Bicycle("mountain","S","Manitou","Fox");
+		MountainBike bike=new MountainBike("S","Manitou","Fox");
 		System.out.println("Bike.size :"+ bike.size());
-		System.out.println("Bike.spares :"+ bike.spares());
+		System.out.println("Bike.spares :\n"+ bike.spares());
 
 		// Output:
 		// Bike.size :S
-		// Bike.spares :[ chain : 10-speed tire_size : 2.1 rear_shock : Fox ]
+		// Bike.spares :
+		//  chain : 10-speed tire_size : 2.1 rear_shock : Fox
 	}
 }
