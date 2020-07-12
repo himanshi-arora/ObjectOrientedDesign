@@ -15,8 +15,16 @@ class Gear{
 			this.diameterOfRim=diameterOfRim;
 			this.diameterOfTire=diameterOfTire;
 		}
+		private int not_cog()
+		{
+			return not_cog;
+		}
+		private int not_chainring()
+		{
+			return not_chainring;
+		}
 		public float ratio(){
-			return (float)not_chainring/(float) not_cog;
+			return (float)not_chainring()/(float) not_cog();
 		}
 		public float gear_inches(){
 			return this.ratio() * (diameterOfRim + (diameterOfTire *2));
@@ -25,12 +33,15 @@ class Gear{
 public class Implementation_CH_2{
 	public static void main(String[] args)
 	{
-		// Gear object1=new Gear(52,11);  // This will give error because constructor has been modified
-		// System.out.println("When Number of teeth in chaining is 52 and in cog is 11  then ratio :"+ object1.ratio());
+		
 		Gear object1=new Gear(52,11,26,1.5f);
-		System.out.println("Gear_Inches :"+ object1.gear_inches());
+		System.out.println("Gear_Inches :"+ object1.gear_inches()); 
 		Gear object2=new Gear(52,11,24,1.25f);
 		System.out.println("Gear_Inches :"+ object2.gear_inches());
+	
+		// Output:
+		// Gear_Inches: 137.0909
+		// Gear_Inches: 125.27272
 
 	}
 }
