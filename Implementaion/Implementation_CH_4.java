@@ -5,15 +5,19 @@ javac Implementation_CH_4.java -d ClassFiles
 java -cp ClassFiles OOD.Implementation_CH_4
 */
 abstract class Bicycle{
+	public String size;
+	public Bicycle(String size){
+		this.size=size;
+	}
 	public abstract String spares();
 }
 class RoadBike extends Bicycle
 {
 
-	private String size, chain,tape_color;
+	private String chain,tape_color;
     protected double tire_size;
-	RoadBike(String size,String tape_color){
-		this.size = size;
+	public RoadBike(String size,String tape_color){
+		super(size);
 		this.tape_color = tape_color;
 		this.chain = "10-speed";
 		this.tire_size = 23;
@@ -32,11 +36,11 @@ class RoadBike extends Bicycle
 }
 class MountainBike extends Bicycle
 {
-	private String size, chain,front_shock,rear_shock;
+	private String chain,front_shock,rear_shock;
 	double tire_size;
-	MountainBike(String size,String front_shock,String rear_shock)
+	public MountainBike(String size,String front_shock,String rear_shock)
 	{
-		this.size=size;
+		super(size);
 		this.front_shock=front_shock;
 		this.rear_shock=rear_shock;
 		this.tire_size = 2.1;
