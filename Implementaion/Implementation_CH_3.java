@@ -24,14 +24,11 @@ class Wheel {
 class Gear{
 	private int not_chainring;  //number of teeth in chaining
 	private int not_cog;		//number of teeth in cog
-	private double diameterOfRim;
-	private double diameterOfTire;
-
-	public Gear(int not_chainring, int not_cog, double diameterOfRim, double diameterOfTire){
+	private Wheel wheel;
+	public Gear(int not_chainring, int not_cog,Wheel wheel){
 		this.not_chainring=not_chainring;
 		this.not_cog=not_cog;
-		this.diameterOfRim = diameterOfRim;
-		this.diameterOfTire = diameterOfTire;
+		this.wheel = wheel;
 	}
 	private int not_cog()
 	{
@@ -46,14 +43,14 @@ class Gear{
 	}
 	
 	public double gear_inches(){
-		return this.ratio() * (new Wheel(diameterOfRim,diameterOfTire).diameter());
+		return this.ratio() * wheel.diameter();
 	}
 }
 public class Implementation_CH_3{
 	public static void main(String[] args)
 	{
 		
-		Gear object1=new Gear(52,11,26,1.5);
+		Gear object1=new Gear(52,11,(new Wheel(26,1.5)));
 		System.out.println("Gear_Inches :"+ object1.gear_inches()); 
 
 		// Output:
