@@ -26,8 +26,11 @@ class Gear{
 		public float ratio(){
 			return (float)not_chainring()/(float) not_cog();
 		}
+		public float diameter(){
+			return (diameterOfRim + (diameterOfTire *2));
+		}
 		public float gear_inches(){
-			return this.ratio() * (diameterOfRim + (diameterOfTire *2));
+			return this.ratio() * diameter();
 		}
 }
 public class Implementation_CH_2{
