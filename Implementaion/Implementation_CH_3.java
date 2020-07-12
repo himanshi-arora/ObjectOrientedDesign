@@ -30,6 +30,11 @@ class Gear{
 		this.not_cog=not_cog;
 		this.wheel = wheel;
 	}
+	public Gear(int not_chainring, int not_cog,double diameterOfRim, double diameterOfTire){
+		this.not_chainring=not_chainring;
+		this.not_cog=not_cog;
+		this.wheel = new Wheel( diameterOfRim, diameterOfTire);
+	}
 	private int not_cog()
 	{
 		return not_cog;
@@ -56,7 +61,10 @@ public class Implementation_CH_3{
 		Gear object1=new Gear(52,11,(new Wheel(26,1.5)));
 		System.out.println("Gear_Inches :"+ object1.gear_inches()); 
 
+		Gear object2=new Gear(52,11,26,1.25);
+		System.out.println("Gear_Inches :"+ object2.gear_inches()); 
 		// Output:
 		// Gear_Inches :137.0909090909091
+		// Gear_Inches :134.72727272727275
 	}
 }
