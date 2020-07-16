@@ -4,10 +4,11 @@ javac -version
 javac Implementation_CH_8.java -d ClassFiles
 java -cp ClassFiles OOD.Implementation_CH_8
 */
+import java.util.*;
 class Bicycle
 {
 	String size;
-	Parts parts;
+	Parts parts ;
 	Bicycle(String size,Parts parts){
 		this.size=size;
 		this.parts=parts;
@@ -19,63 +20,72 @@ class Bicycle
 		return parts.spares();
 	}
 }
-abstract class Parts{
-	String chain;
-	double tire_size;
-	Parts(String chain,double tire_size){
-		this.chain= chain==null ? default_chain() : chain;
-		this.tire_size=Double.isNaN(tire_size)? default_tire_size() : tire_size;
+class Parts{
+	private ArrayList<Part> parts = new ArrayList<>();
+	Parts(ArrayList<Part> parts)
+	{
+		for ( Part p : parts)
+		this.parts.add(p);
 	}
+	
 	public String spares(){
-		return " chain :"+ chain + " tire_size: " + tire_size + local_spares(); 
+		String details="";
+		for(Part p : parts)
+			details+=p.toString();
+		return details;
 	}
-	abstract public String local_spares();
-	abstract public double default_tire_size();
-	public String default_chain(){
-		return "10-speed";
-	}
-}
-class RoadBikeParts extends Parts{
-	private String tape_color;
 
-	RoadBikeParts(String tape_color,String chain, double tire_size){
-		super(chain,tire_size);
-		this.tape_color = tape_color;
-		
-	} 
-	public String local_spares(){
-		return " tape_color :"+tape_color;
-	}
-	public double default_tire_size(){
-		return 23;
-	}
 }
-class MountainBikeParts extends Parts{
-	private String front_shock,rear_shock;
+class Part{
+	String name,description;
+	boolean needs_spare;
+	Part(String name, String description,Boolean needs_spare){
+		this.name=name;
+		this.description=description;
+		this.needs_spare=needs_spare;
+	}
+	Part(String name, String description){
+		this.name=name;
+		this.description=description;
+		this.needs_spare=true;
+	}
+	public String toString()
+	{
+		return "[ Name : "+ name + ", Description : "+ description + ", Needs Spare :"+ String.valueOf(needs_spare) + " ]\n";
+	}
 
-	MountainBikeParts(String front_shock,String rear_shock,String chain, double tire_size){
-		super(chain,tire_size);
-		this.front_shock=front_shock;
-		this.rear_shock=rear_shock;
-	}
-	public String local_spares(){
-		return  " rear_shock :"+ rear_shock;
-	}
-	public double default_tire_size(){
-		return 2.1;
-	}
- }
+}
  public class Implementation_CH_8{
  	public static void main(String[] args)
  	{
- 		Bicycle road_bike = new Bicycle("L", new RoadBikeParts("RED",null, Double.NaN));
+
+ 		Part chain= new Part("chain", "10-speed");
+ 		Part road_tire= new Part("tire_size","23");
+ 		Part tape = new Part("tape_color","red");
+ 		Part mountain_tire= new Part("tire_size", "2.1");
+ 		Part rear_shock= new Part("rear_shock", "Fox");
+ 		Part front_shock= new Part("front_shock", "Manitou", false);
+ 		ArrayList<Part> rbparts= new ArrayList<>();
+ 		rbparts.add(chain);
+ 		rbparts.add(road_tire);
+ 		rbparts.add(tape);
+ 		Parts road_bike_parts= new Parts(rbparts);
+
+ 		Bicycle road_bike=new Bicycle("L",road_bike_parts);
  		System.out.println("road_bike size  :\n"+ road_bike.size());
  		System.out.println("road_bike spares:\n"+ road_bike.spares());
 
- 		Bicycle mountain_bike = new Bicycle("S", new MountainBikeParts(null, "Fox",null,Double.NaN));
+ 		ArrayList<Part> mbparts=new ArrayList<>();
+ 		mbparts.add(chain);
+ 		mbparts.add(mountain_tire);
+ 		mbparts.add(rear_shock);
+ 		mbparts.add(front_shock);
+
+ 		Bicycle mountain_bike = new Bicycle("S", new Parts(mbparts));
+
  		System.out.println("mountain_bike size  :\n"+ mountain_bike.size());
  		System.out.println("mountain_bike spares:\n"+ mountain_bike.spares());
-
+ 	
  	}
  }
 // Output:
@@ -83,8 +93,14 @@ class MountainBikeParts extends Parts{
 // road_bike size  :
 // L
 // road_bike spares:
-//  chain :10-speed tire_size: 23.0 tape_color :RED
+// [ Name : chain, Description : 10-speed, Needs Spare :true ]
+// [ Name : tire_size, Description : 23, Needs Spare :true ]
+// [ Name : tape_color, Description : red, Needs Spare :true ]
+
 // mountain_bike size  :
 // S
 // mountain_bike spares:
-//  chain :10-speed tire_size: 2.1 rear_shock :Fox
+// [ Name : chain, Description : 10-speed, Needs Spare :true ]
+// [ Name : tire_size, Description : 2.1, Needs Spare :true ]
+// [ Name : rear_shock, Description : Fox, Needs Spare :true ]
+// [ Name : front_shock, Description : Manitou, Needs Spare :false ]
