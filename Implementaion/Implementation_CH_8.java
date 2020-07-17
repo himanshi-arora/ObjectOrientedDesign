@@ -7,11 +7,14 @@ java -cp ClassFiles OOD.Implementation_CH_8
 import java.util.*;
 class Bicycle
 {
-	String size;
-	Parts parts ;
+	private String size;
+	private Parts parts ;
 	Bicycle(String size,Parts parts){
 		this.size=size;
 		this.parts=parts;
+	}
+	public Parts parts(){
+		return parts;
 	}
 	public String size(){
 		return size;
@@ -51,6 +54,11 @@ class Parts{
 	}
 	public int partsSize(){
 		return parts.size();
+	}
+	public static Parts add(Parts p1,Parts p2){
+		Parts rp=new Parts(p1.parts);
+		rp.parts.addAll(p2.parts);
+		return rp;
 	}
 
 }
@@ -107,7 +115,10 @@ class Part{
  		System.out.println("mountain_bike spares:\n"+ mountain_bike.spares());
  		System.out.println("mountain_bike spare size :\n"+ mountain_bike.sparesSize());
  		System.out.println("mountain_bike parts Size:\n"+ mountain_bike.partsSize());
- 	
+ 		Parts combo_parts=Parts.add(mountain_bike.parts(),road_bike.parts());
+ 		System.out.println("combine parts Size:\n"+ combo_parts.partsSize());
+ 		System.out.println("Combine spares:\n"+ combo_parts.spares());
+
  	}
  }
 // Output:
@@ -119,6 +130,10 @@ class Part{
 // [ Name : tire_size, Description : 23, Needs Spare :true ]
 // [ Name : tape_color, Description : red, Needs Spare :true ]
 
+// road_bike spare size :
+// 3
+// road_bike parts Size:
+// 3
 // mountain_bike size  :
 // S
 // mountain_bike spares:
@@ -126,3 +141,18 @@ class Part{
 // [ Name : tire_size, Description : 2.1, Needs Spare :true ]
 // [ Name : rear_shock, Description : Fox, Needs Spare :true ]
 // [ Name : front_shock, Description : Manitou, Needs Spare :false ]
+
+// mountain_bike spare size :
+// 3
+// mountain_bike parts Size:
+// 4
+// combine parts Size:
+// 7
+// Combine spares:
+// [ Name : chain, Description : 10-speed, Needs Spare :true ]
+// [ Name : tire_size, Description : 2.1, Needs Spare :true ]
+// [ Name : rear_shock, Description : Fox, Needs Spare :true ]
+// [ Name : front_shock, Description : Manitou, Needs Spare :false ]
+// [ Name : chain, Description : 10-speed, Needs Spare :true ]
+// [ Name : tire_size, Description : 23, Needs Spare :true ]
+// [ Name : tape_color, Description : red, Needs Spare :true ]
