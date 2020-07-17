@@ -19,6 +19,12 @@ class Bicycle
 	public String spares(){
 		return parts.spares();
 	}
+	public int partsSize(){
+		return parts.partsSize();
+	}
+	public int sparesSize(){
+		return parts.sparesSize();
+	}
 }
 class Parts{
 	private ArrayList<Part> parts = new ArrayList<>();
@@ -33,6 +39,18 @@ class Parts{
 		for(Part p : parts)
 			details+=p.toString();
 		return details;
+	}
+	public int sparesSize(){
+		int count=0;
+		for(Part p: parts)
+		{
+			if(p.needs_spare == true)
+				count++;
+		}
+		return count;
+	}
+	public int partsSize(){
+		return parts.size();
 	}
 
 }
@@ -74,6 +92,8 @@ class Part{
  		Bicycle road_bike=new Bicycle("L",road_bike_parts);
  		System.out.println("road_bike size  :\n"+ road_bike.size());
  		System.out.println("road_bike spares:\n"+ road_bike.spares());
+ 		System.out.println("road_bike spare size :\n"+ road_bike.sparesSize());
+ 		System.out.println("road_bike parts Size:\n"+ road_bike.partsSize());
 
  		ArrayList<Part> mbparts=new ArrayList<>();
  		mbparts.add(chain);
@@ -85,6 +105,8 @@ class Part{
 
  		System.out.println("mountain_bike size  :\n"+ mountain_bike.size());
  		System.out.println("mountain_bike spares:\n"+ mountain_bike.spares());
+ 		System.out.println("mountain_bike spare size :\n"+ mountain_bike.sparesSize());
+ 		System.out.println("mountain_bike parts Size:\n"+ mountain_bike.partsSize());
  	
  	}
  }
